@@ -14,17 +14,19 @@ public class Calculator{
 
         /* Initialize variables for testing. */
         int a = calc.Add("");
+        System.out.println(a);
         int b = calc.Add("1");
+        System.out.println(b);
         int c = calc.Add("1,210");
+        System.out.println(c);
         int d = calc.Add("5\n100,10");
+        System.out.println(d);
         int e = calc.Add("//abc\n10,100\n50abc60");
+        System.out.println(e);
+        int f = calc.Add("//::\n-10::100\n-50::60");
+        System.out.println(f);
 
         /* Output */
-        System.out.println(a);
-        System.out.println(b);
-        System.out.println(c);
-        System.out.println(d);
-        System.out.println(e);
     }
 }
 
@@ -80,10 +82,38 @@ class StringCalculator{
             // intDigitsArray: int array, digits parsed from string to int.
             int intDigitsArray[] = new int[digitsCount];
 
-            for (int i = 0; i < digitsCount; i++){
-                intDigitsArray[i] = Integer.parseInt(splittedDigits[i]);
-            }
+            Boolean isNegativeExist = false;
 
+            for (int i = 0; i < digitsCount; i++){
+
+                // currentNumber: int, number to be processed.
+                int currentNumber = Integer.parseInt(splittedDigits[i]);
+
+                if (currentNumber < 0){
+                    // Print negatives.
+
+                    if (!isNegativeExist){
+                        // Throw an exception about negatives.
+                        System.out.print("Negatives are not allowed. Passed negatives: ");
+                    }
+
+                    isNegativeExist = true;
+
+                    System.out.printf("'%d'", currentNumber);
+                    
+                    continue;
+                }
+                
+                intDigitsArray[i] = currentNumber;
+            }
+            
+            if (isNegativeExist){
+
+                System.out.println();
+
+                // No result, because of negatives.
+                return 0;
+            }
             sum = Arrays.stream(intDigitsArray).sum();
         }
 
