@@ -13,22 +13,38 @@ public class Calculator{
         StringCalculator calc = new StringCalculator();
 
         /* Initialize variables for testing. */
+
+        printLine();
         int a = calc.Add("");
         System.out.println(a);
+        printLine();
         int b = calc.Add("1");
         System.out.println(b);
+        printLine();
         int c = calc.Add("1,210");
         System.out.println(c);
+        printLine();
         int d = calc.Add("5\n100,10");
         System.out.println(d);
+        printLine();
         int e = calc.Add("//abc\n10,100\n50abc60");
         System.out.println(e);
+        printLine();
         int f = calc.Add("//::\n-10::100\n-50::60");
         System.out.println(f);
+        printLine();
         int g = calc.Add("//::\n10::2021\n50::60");
         System.out.println(g);
+        printLine();
+        int h = calc.Add("//[aaaaa]\n10aaaaa2021,50aaaaa0");
+        System.out.println(h);
+        printLine();
 
         /* Output */
+    }
+
+    public static void printLine(){
+        System.out.println("---------------------------");
     }
 }
 
@@ -53,26 +69,49 @@ class StringCalculator{
             if (numbers.charAt(0) == '/' && numbers.charAt(1) == '/'){
                 // If the user have set initial delimiter.
 
-                // start: int, number of char where to start slice string
-                //             from user delimiter.
-                int start = 2;
+                if (numbers.charAt(2) == '['){
+                    // Multilength delimiter.
 
-                // end: int, number of char where to end slice string
-                //           from user delimiter.
-                int end;
+                    // start: int, number of char where to start slice string
+                    //             from user delimiter.
+                    int start = 3;
+                    // end: int, number of char where to end slice string
+                    //           from user delimiter.
+                    int end;
 
-                // Set end var. through the loop.
-                for (end = start; numbers.charAt(end) != '\n'; end++);
+                    // Set end var. through the loop.
+                    for (end = start; numbers.charAt(end) != '\n'; end++);
 
-                // userDelimiter: string, delimiter provided by the user.
-                String userDelimiter = numbers.substring(start, end);
+                    // multipleLengthDelimiter: string, given multilength user delimiter.
+                    String multipleLengthDelimiter = numbers.substring(start, end - 1);
 
-                // Slice string from user delimiter.
-                numbers = numbers.substring(end + 1, numbers.length());
+                    // Slice string from user delimiter.
+                    numbers = numbers.substring(end + 1, numbers.length());
+                    
+                    // Concatinate delimiters.
+                    delimiters += "|" + multipleLengthDelimiter;
 
-                // Concatinate delimiters.
-                delimiters += "|" + userDelimiter;
-
+                }else{
+                    // start: int, number of char where to start slice string
+                    //             from user delimiter.
+                    int start = 2;
+    
+                    // end: int, number of char where to end slice string
+                    //           from user delimiter.
+                    int end;
+    
+                    // Set end var. through the loop.
+                    for (end = start; numbers.charAt(end) != '\n'; end++);
+    
+                    // userDelimiter: string, delimiter provided by the user.
+                    String userDelimiter = numbers.substring(start, end);
+    
+                    // Slice string from user delimiter.
+                    numbers = numbers.substring(end + 1, numbers.length());
+    
+                    // Concatinate delimiters.
+                    delimiters += "|" + userDelimiter;
+                }
             }
 
             // SplittedDigits: string array, array of splitted digits.
@@ -106,7 +145,7 @@ class StringCalculator{
 
                     isNegativeExist = true;
 
-                    System.out.printf("'%d'", currentNumber);
+                    System.out.printf("'%d' ", currentNumber);
                     
                     continue;
                 }
