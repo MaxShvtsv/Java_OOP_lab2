@@ -25,6 +25,8 @@ public class Calculator{
         System.out.println(e);
         int f = calc.Add("//::\n-10::100\n-50::60");
         System.out.println(f);
+        int g = calc.Add("//::\n10::2021\n50::60");
+        System.out.println(g);
 
         /* Output */
     }
@@ -88,6 +90,11 @@ class StringCalculator{
 
                 // currentNumber: int, number to be processed.
                 int currentNumber = Integer.parseInt(splittedDigits[i]);
+
+                if (currentNumber > 1000){
+                    // Numbers bigger then 1000 are ignored.
+                    currentNumber = 0;
+                }
 
                 if (currentNumber < 0){
                     // Print negatives.
