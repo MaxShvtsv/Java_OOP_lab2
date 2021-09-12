@@ -16,7 +16,7 @@ public class Calculator{
         int a = calc.Add("");
         int b = calc.Add("1");
         int c = calc.Add("1,210");
-        int d = calc.Add("10,100,50,60");
+        int d = calc.Add("10,100\n50,60");
 
         /* Output */
         System.out.println(a);
@@ -46,7 +46,7 @@ class StringCalculator{
             // There are some numbers to process.
 
             // SplittedDigits: string array, array of splitted digits.
-            String splittedDigits[] = numbers.split(",");
+            String splittedDigits[] = numbers.split(",|\n");
 
             // digitsCount: int, count of digits in the string.
             int digitsCount = splittedDigits.length;
