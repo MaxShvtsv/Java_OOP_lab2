@@ -16,13 +16,15 @@ public class Calculator{
         int a = calc.Add("");
         int b = calc.Add("1");
         int c = calc.Add("1,210");
-        int d = calc.Add("10,100\n50,60");
+        int d = calc.Add("5\n100,10");
+        int e = calc.Add("//abc\n10,100\n50abc60");
 
         /* Output */
         System.out.println(a);
         System.out.println(b);
         System.out.println(c);
         System.out.println(d);
+        System.out.println(e);
     }
 }
 
@@ -36,17 +38,41 @@ class StringCalculator{
     public int Add(String numbers){
 
         //sum: int, sum of digits in given string.
-        int sum;
+        int sum = 0;
 
-        if (numbers == ""){
-            // No numbers in the string.
-
-            sum = 0;
-        }else{
+        if (numbers != ""){
             // There are some numbers to process.
 
+            // delimiters: string, string of all delimiters.
+            String delimiters = ",|\n";
+
+            if (numbers.charAt(0) == '/' && numbers.charAt(1) == '/'){
+                // If the user have set initial delimiter.
+
+                // start: int, number of char where to start slice string
+                //             from user delimiter.
+                int start = 2;
+
+                // end: int, number of char where to end slice string
+                //           from user delimiter.
+                int end;
+
+                // Set end var. through the loop.
+                for (end = start; numbers.charAt(end) != '\n'; end++);
+
+                // userDelimiter: string, delimiter provided by the user.
+                String userDelimiter = numbers.substring(start, end);
+
+                // Slice string from user delimiter.
+                numbers = numbers.substring(end + 1, numbers.length());
+
+                // Concatinate delimiters.
+                delimiters += "|" + userDelimiter;
+
+            }
+
             // SplittedDigits: string array, array of splitted digits.
-            String splittedDigits[] = numbers.split(",|\n");
+            String splittedDigits[] = numbers.split(delimiters);
 
             // digitsCount: int, count of digits in the string.
             int digitsCount = splittedDigits.length;
