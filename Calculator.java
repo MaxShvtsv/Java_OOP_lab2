@@ -16,31 +16,35 @@ public class Calculator{
 
         printLine();
         int a = calc.Add("");
-        System.out.println(a);
+        System.out.println(a); // 0
         printLine();
         int b = calc.Add("1");
-        System.out.println(b);
+        System.out.println(b); // 1
         printLine();
         int c = calc.Add("1,210");
-        System.out.println(c);
+        System.out.println(c); // 211
         printLine();
         int d = calc.Add("5\n100,10");
-        System.out.println(d);
+        System.out.println(d); // 115
         printLine();
         int e = calc.Add("//abc\n10,100\n50abc60");
-        System.out.println(e);
+        System.out.println(e); // 220
         printLine();
         int f = calc.Add("//::\n-10::100\n-50::60");
-        System.out.println(f);
+        System.out.println(f); // 0, Exception, with negatives.
         printLine();
         int g = calc.Add("//::\n10::2021\n50::60");
-        System.out.println(g);
+        System.out.println(g); // 120
         printLine();
         int h = calc.Add("//[aaaaa]\n10aaaaa2021,50aaaaa0");
-        System.out.println(h);
+        System.out.println(h); // 60
         printLine();
-
-        /* Output */
+        int i = calc.Add("//[a][b][c]\n10a20b50c10,100");
+        System.out.println(i); // 190
+        printLine();
+        int j = calc.Add("//[aaa][bb][cccc]\n100aaa5bb105cccc6,0");
+        System.out.println(j); // 216
+        printLine();
     }
 
     public static void printLine(){
@@ -70,7 +74,7 @@ class StringCalculator{
                 // If the user have set initial delimiter.
 
                 if (numbers.charAt(2) == '['){
-                    // Multilength delimiter.
+                    // Multichar delimiters.
 
                     // start: int, number of char where to start slice string
                     //             from user delimiter.
@@ -83,14 +87,31 @@ class StringCalculator{
                     for (end = start; numbers.charAt(end) != '\n'; end++);
 
                     // multipleLengthDelimiter: string, given multilength user delimiter.
-                    String multipleLengthDelimiter = numbers.substring(start, end - 1);
+                    String multipleLengthDelimiter = numbers.substring(start - 1, end);
 
-                    // Slice string from user delimiter.
+                    // bracketsCount: int, count of brackets. Used to determine count of delimiters.
+                    int bracketsCount = multipleLengthDelimiter.length() - 
+                                        multipleLengthDelimiter.replace("[", "").length();
+
                     numbers = numbers.substring(end + 1, numbers.length());
-                    
-                    // Concatinate delimiters.
-                    delimiters += "|" + multipleLengthDelimiter;
 
+                    if (bracketsCount == 1){
+                        // Multilength delimiter.
+                        
+                        // Concatinate delimiters.
+                        delimiters += "|" + multipleLengthDelimiter.substring(1, multipleLengthDelimiter.length() - 1);
+
+                    } else{
+                        // Multiple delimiters.
+
+                        multipleLengthDelimiter = multipleLengthDelimiter.substring(1, multipleLengthDelimiter.length() - 1);
+
+                        String arrayOfDelimiters[] = multipleLengthDelimiter.split("\\]\\[");
+
+                        for (String delimiter : arrayOfDelimiters){
+                            delimiters += "|" + delimiter;
+                        }
+                    }
                 }else{
                     // start: int, number of char where to start slice string
                     //             from user delimiter.
@@ -114,6 +135,7 @@ class StringCalculator{
                 }
             }
 
+            
             // SplittedDigits: string array, array of splitted digits.
             String splittedDigits[] = numbers.split(delimiters);
 
