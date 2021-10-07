@@ -5,94 +5,119 @@
 package src.secondlab.Java_OOP_lab2;
 
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Calculator{
     public static void main(String args[]){
 
-        /* Initialize StringCalculator class. */
+        // printLine();
+        // int a = calc.Add("5,7");
+        // System.out.println(a); // 0
+        // if (a == 0){
+        //     System.out.println("True");
+        // }
+        // printLine();
+        // int b = calc.Add("1");
+        // System.out.println(b); // 1
+        // if (b == 1){
+        //     System.out.println("True");
+        // }
+        // printLine();
+        // int c = calc.Add("1,2");
+        // System.out.println(c); // 211
+        // if (c == 3){
+        //     System.out.println("True");
+        // }
+        // printLine();
+        // int d = calc.Add("5\n100,10");
+        // System.out.println(d); // 115
+        // if (d == 115){
+        //     System.out.println("True");
+        // }
+        // printLine();
+        // int e = calc.Add("//abc\n10,100\n50abc60");
+        // System.out.println(e); // 220
+        // if (e == 220){
+        //     System.out.println("True");
+        // }
+        // printLine();
+        // int f = calc.Add("//::\n-10::100\n-50::60");
+        // System.out.println(f); // 0, Exception, with negatives.
+        // if (f == 0){
+        //     System.out.println("True");
+        // }
+        // printLine();
+        // int g = calc.Add("//::\n10::2021\n50::60");
+        // System.out.println(g); // 120
+        // if (g == 120){
+        //     System.out.println("True");
+        // }
+        // printLine();
+        // int h = calc.Add("//[aaaaa]\n10aaaaa2021,50aaaaa0");
+        // System.out.println(h); // 60
+        // if (h == 60){
+        //     System.out.println("True");
+        // }
+        // printLine();
+        // int i = calc.Add("//[a][b][c]\n10a20b50c10,100");
+        // System.out.println(i); // 190
+        // if (i == 190){
+        //     System.out.println("True");
+        // }
+        // printLine();
+        // int j = calc.Add("//[aaa][bb][cccc]\n100aaa5bb105cccc6,0");
+        // System.out.println(j); // 216
+        // if (j == 216){
+        //     System.out.println("True");
+        // }
+        // printLine();
+        // int test1 = calc.Add("//[*][**][***]\n2*7**8***10");
+        // System.out.println(test1); // 27
+        // if (test1 == 27){
+        //     System.out.println("True");
+        // }
+        // printLine();
+        // int test2 = calc.Add("//[a][**][+++]\n5*5**12+++12");
+        // System.out.println(test2); // 34
+        // if (test2 == 34){
+        //     System.out.println("True");
+        // }
+        // printLine();
+        // int test3 = calc.Add("//[ ][**][+++]\n5 5 12 10");
+        // System.out.println(test3); // 32
+        // if (test3 == 32){
+        //     System.out.println("True");
+        // }
+        // printLine();
+
+        /* Initialize StringCalculator and Scanner class. */
+
         StringCalculator calc = new StringCalculator();
+        Scanner input = new Scanner(System.in);
 
-        /* Initialize variables for testing. */
+        
+        printLine();
+        
+        System.out.println("Input numbers:");
+        String stringInput = input.nextLine();
+        
+        
+        if (stringInput.charAt(0) != '"' || stringInput.charAt(stringInput.length() - 1) != '"'){
+            System.out.println("Put expression in brackets!");
+            System.exit(1);
+        }
+
+        // Replace \n to new line char.
+        stringInput =  stringInput.substring(1, stringInput.length() - 1);
+        stringInput = stringInput.replaceAll("\\\\n", "\n");
+
+        System.out.println("Input: '" + stringInput + "'");
 
         printLine();
-        int a = calc.Add("");
-        System.out.println(a); // 0
-        if (a == 0){
-            System.out.println("True");
-        }
+        int sum = calc.Add(stringInput);
+        System.out.println("Sum: " + sum);
         printLine();
-        int b = calc.Add("1");
-        System.out.println(b); // 1
-        if (b == 1){
-            System.out.println("True");
-        }
-        printLine();
-        int c = calc.Add("1,210");
-        System.out.println(c); // 211
-        if (c == 211){
-            System.out.println("True");
-        }
-        printLine();
-        int d = calc.Add("5\n100,10");
-        System.out.println(d); // 115
-        if (d == 115){
-            System.out.println("True");
-        }
-        printLine();
-        int e = calc.Add("//abc\n10,100\n50abc60");
-        System.out.println(e); // 220
-        if (e == 220){
-            System.out.println("True");
-        }
-        printLine();
-        int f = calc.Add("//::\n-10::100\n-50::60");
-        System.out.println(f); // 0, Exception, with negatives.
-        if (f == 0){
-            System.out.println("True");
-        }
-        printLine();
-        int g = calc.Add("//::\n10::2021\n50::60");
-        System.out.println(g); // 120
-        if (g == 120){
-            System.out.println("True");
-        }
-        printLine();
-        int h = calc.Add("//[aaaaa]\n10aaaaa2021,50aaaaa0");
-        System.out.println(h); // 60
-        if (h == 60){
-            System.out.println("True");
-        }
-        printLine();
-        int i = calc.Add("//[a][b][c]\n10a20b50c10,100");
-        System.out.println(i); // 190
-        if (i == 190){
-            System.out.println("True");
-        }
-        printLine();
-        int j = calc.Add("//[aaa][bb][cccc]\n100aaa5bb105cccc6,0");
-        System.out.println(j); // 216
-        if (j == 216){
-            System.out.println("True");
-        }
-        printLine();
-        int test1 = calc.Add("//[*][**][***]\n2*7**8***10");
-        System.out.println(test1); // 27
-        if (test1 == 27){
-            System.out.println("True");
-        }
-        printLine();
-        int test2 = calc.Add("//[a][**][+++]\n5*5**12+++12");
-        System.out.println(test2); // 34
-        if (test2 == 34){
-            System.out.println("True");
-        }
-        printLine();
-        int test3 = calc.Add("//[ ][**][+++]\n5 5 12 10");
-        System.out.println(test3); // 32
-        if (test3 == 32){
-            System.out.println("True");
-        }
-        printLine();
+        input.close();
     }
 
     public static void printLine(){
@@ -122,7 +147,6 @@ class StringCalculator{
 
             if (numbers.charAt(0) == '/' && numbers.charAt(1) == '/'){
                 // If the user have set initial delimiter.
-
                 if (numbers.charAt(2) == '['){
                     // Multichar delimiters.
 
@@ -134,7 +158,7 @@ class StringCalculator{
                     int end;
 
                     // isRegexDelimiter: boolean, determines if there is RegEx reserved chars.
-                    Boolean isRegexDelimiter = true;
+                    Boolean isRegexDelimiter = false;
 
                     // Set end var. through the loop.
                     for (end = start; numbers.charAt(end) != '\n'; end++);
@@ -156,7 +180,7 @@ class StringCalculator{
                     for (int i = 0; i < delimiterLen; i++){
                         for (String regexChar : regexSymbols){
                             if (regexChar.equals(String.valueOf(gotDelimiter.charAt(i)))){
-                                isRegexDelimiter = false;
+                                isRegexDelimiter = true;
                                 if (i == 0){
                                     gotDelimiter = "/" + gotDelimiter;
                                 } else{
@@ -167,24 +191,27 @@ class StringCalculator{
                             }
                         }
                     }
-
+                    // System.out.println(bracketsCount);
                     gotDelimiter = "[" + gotDelimiter + "]";
-
                     if (bracketsCount == 1){
                         // Multilength delimiter.
                         
                         // Concatinate delimiters.
                         delimiters += "|" + gotDelimiter;
-
+                        
                     } else{
                         // Multiple delimiters.
-                        if (!isRegexDelimiter){
+                        // System.out.println("yes");
+                        if (isRegexDelimiter){
                             // We don't remove brackets if there RegEx like delimiter string.
+                            // System.out.println("got'" + gotDelimiter + "'");
                             multipleLengthDelimiter = gotDelimiter;
+                            // System.out.println(multipleLengthDelimiter);
     
                             String arrayOfDelimiters[] = multipleLengthDelimiter.split("\\]\\[");
     
                             for (String delimiter : arrayOfDelimiters){
+                                // System.out.println(delimiter);
                                 delimiters += "|" + delimiter;
                             }
                         }
@@ -213,9 +240,12 @@ class StringCalculator{
             }
             
             // SplittedDigits: string array, array of splitted digits.
-
+            // System.out.println(delimiters);
+            // System.out.println(numbers);
             String splittedDigits[] = numbers.split(delimiters);
-
+            // for (String i : splittedDigits){
+            //     System.out.println(i);
+            // }
             // digitsCount: int, count of digits in the string.
             int digitsCount = splittedDigits.length;
 
@@ -227,7 +257,7 @@ class StringCalculator{
 
                 // currentNumber: int, number to be processed.
                 int currentNumber = 0;
-
+                // System.out.println(splittedDigits[i]);
                 try {
                     currentNumber = Integer.parseInt(splittedDigits[i]);
                 } catch (Exception Ex) {
@@ -238,7 +268,7 @@ class StringCalculator{
                     // Numbers bigger then 1000 are ignored.
                     currentNumber = 0;
                 }
-
+                // System.out.println(currentNumber);
                 if (currentNumber < 0){
                     // Print negatives.
 
